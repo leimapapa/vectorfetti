@@ -13,8 +13,8 @@ An SVG-based confetti plugin that allows you to make confetti appear on button c
 confetti(elt, {options});
 
 confetti(document.querySelector('#myElement'), {
-  // these are the default values if you pass in no options
-  colors: 'random', // can also pass in an array of colors (ex. ['#ff0000', '#00ff00', '#0000ff']) 
+  	// these are the default values if you pass in no options
+  	colors: 'random', // can also pass in an array of colors (ex. ['#ff0000', '#00ff00', '#0000ff']) 
 	delay: 100, // how long before the confetti appears
 	drop: window.innerHeight, // y axis spread (can be numbers.. - ex. 400)
 	fadeout: true, // adds a fade effect that hides the edges of the SVG
