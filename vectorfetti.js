@@ -10,6 +10,7 @@ function confetti(el, params) {
 		fadeout: true,
 		flakes: 100,
 		speed: 6000,
+		spin: true,
 		spread: 400,
 		type: "default"
 	};
@@ -32,16 +33,18 @@ function confetti(el, params) {
 	for (let i = 0; i < c.flakes; i++) {
 		let conId = `con${randInt(0, 1000)}fet${randInt(0, 1000)}ti${randInt(0,	1000)}`;
 		let confettiDur = `${randInt(c.speed / 2, c.speed)}`;
+		let confettiSpin = ``;
 		let confettiType = ``;
-		let confettiSpin = `<animateTransform attributeName="transform"
+		if (c.spin) {
+			confettiSpin = `<animateTransform attributeName="transform"
                           attributeType="XML"
                           type="rotate"
                           from="0 0 0"
                           to="${(Math.random() < 0.5 ? -1 : 1) * 360} 0 0"
-                          dur="${randInt(c.speed / 6, c.speed / 2)}ms"
+                          dur="${randInt(c.speed/6, c.speed/2)}ms"
 													begin="-${randInt(1, 10) / 10}s"
                           repeatCount="indefinite"/>`;
-
+		}
 		// are we using an array of colors or random ones?
 		let confettiColor = ``;
 		if (c.colors == "random" || !Array.isArray(c.colors)) {
@@ -99,6 +102,18 @@ function confetti(el, params) {
 				confettiType = `<rect id="${conId}" fill="rgb(${randInt(0, 255)}, ${randInt(0, 255)}, ${randInt(0, 255)})" x="0" y="0" height="${hhww}" width="${hhww}" filter="url(#blur${randInt(1, 2)})">
 					${confettiSpin}
 				</rect>`;
+				break;
+			case 'music':
+				if (randInt(0, 1) == 1) {
+					// 1 note
+					confettiType = `<path id="${conId}" fill="${confettiColor}" d="M -3.6 9.6 C -4.9 8.6 -4.2 6.8 -2.3 5.7 C -1.4 5.1 -0.9 5.1 0 5.1 C 0.4 5.1 1.2 5.4 1.2 5.4 L 1.2 -10.2 L 1.8 -10.2 L 1.8 -9.4 C 1.8 -9.1 1.8 -9.1 1.8 -9 C 2.1 -7.6 2.5 -7.1 4.1 -5.4 C 6.1 -3.2 6.4 -1.8 6.4 0 C 6.4 1.5 5 5 4.8 5.1 C 5.1 3.8 6 2 6 0 C 6 -1 5.7 -2.1 4.8 -3 C 4.1 -3.8 2 -5 2 -4 L 2 7 C 2 8 2 8 1 9 C -0.3 9.9 -2.5 10.6 -3.6 9.6 Z"  filter="url(#blur${randInt(1, 2)})">
+				${confettiSpin}
+			</path>`;
+				} else {
+					confettiType = `<path id="${conId}" fill="${confettiColor}" d="M -12.6 9.6 C -13.9 8.6 -13.2 6.8 -11.3 5.7 C -10.4 5.1 -9.9 5.1 -9 5 C -8 5 -8 5 -8 5 V -10 H 9 V 7 C 9 8 9 8 8 9 C 6.7 9.9 4.5 10.6 3.4 9.6 C 2.1 8.6 2.8 6.8 4.7 5.7 C 5.6 5.1 6.1 5.1 7 5 C 8 5 8 5 8 5 V -8 H -7 V 7 C -7 8 -7 8 -8 9 C -9.3 9.9 -11.5 10.6 -12.6 9.6 Z"  filter="url(#blur${randInt(1, 2)})">
+				${confettiSpin}
+			</path>`;
+				}
 				break;
 			case "rect":
 			case "default":
