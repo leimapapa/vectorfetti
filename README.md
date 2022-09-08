@@ -21,6 +21,7 @@ confetti(document.querySelector('#myElement'), {
 	fadeout: true, // adds a fade effect that hides the edges of the SVG
 	flakes: 100, // total pieces of confetti
 	speed: 6000, // from population to removal from page
+	spin: true, // rotate confetti around its center as it falls
 	spread: 400, // x axis spread
 	type: 'default' // 'default', 'xo', 'code', 'circle', 'flower', 'square', 'rect'
 })
