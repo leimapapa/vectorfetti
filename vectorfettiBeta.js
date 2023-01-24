@@ -4,6 +4,7 @@ function confetti(el, params) {
     return;
   }
   const defaultProperties = {
+    addBlur: true,
     angle: 0,
     colors: 'random',
     delay: 100,
@@ -31,6 +32,11 @@ function confetti(el, params) {
 
   let hh = c.drop;
   let ww = c.spread;
+
+  let randomBlur = () => {
+    if (c.addBlur) return randInt(1, 2);
+    else return 1;
+  }
 
   let animatedConfetti = ``;
   // make sure number of flakes is a number
@@ -75,34 +81,34 @@ function confetti(el, params) {
         case 'xo':
           if (randInt(0, 1) == 1) {
             // O shape
-            confettiType = `<circle id="${conId}" stroke="${confettiColor}" stroke-width="${randInt(1, 3)}" fill="none" cx="0" cy="0" r="${fixedR}" filter="url(#blur${randInt(1, 2)})">
+            confettiType = `<circle id="${conId}" stroke="${confettiColor}" stroke-width="${randInt(1, 3)}" fill="none" cx="0" cy="0" r="${fixedR}" filter="url(#blur${randomBlur()})">
 			${confettiSpin}
 			</circle>`;
           } else {
             // X shape
-            confettiType = `<path id="${conId}" fill="${confettiColor}" d="M -5 1 H -1 V 5 A 1 1 0 0 0 1 5 V 1 H 5 A 1 1 0 0 0 5 -1 H 1 V -5 A 1 1 0 0 0 -1 -5 V -1 H -5 A 1 1 0 0 0 -5 1"  filter="url(#blur${randInt(1, 2)})">
+            confettiType = `<path id="${conId}" fill="${confettiColor}" d="M -5 1 H -1 V 5 A 1 1 0 0 0 1 5 V 1 H 5 A 1 1 0 0 0 5 -1 H 1 V -5 A 1 1 0 0 0 -1 -5 V -1 H -5 A 1 1 0 0 0 -5 1"  filter="url(#blur${randomBlur()})">
 			${confettiSpin}
 			</path>`;
           }
           break;
         case 'code':
-          confettiType = `<text id="${conId}" fill="${confettiColor}" fill="none" x="0" y="0" dominant-baseline="middle" text-anchor="middle" filter="url(#blur${randInt(1, 2)})" font-size="${fixedFontSize}">${randInt(0, 1)}
+          confettiType = `<text id="${conId}" fill="${confettiColor}" fill="none" x="0" y="0" dominant-baseline="middle" text-anchor="middle" filter="url(#blur${randomBlur()})" font-size="${fixedFontSize}">${randInt(0, 1)}
 			${confettiSpin}
 			</text>`;
           break;
         case 'fruit':
           let fruitArray = ['🍓', '🍊', '🍉', '🍇', '🍒', '🍎', '🍍', '🍑', '🍋', '🥝', '🍌'];
-          confettiType = `<text id="${conId}" fill="${confettiColor}" stroke-width="${randInt(1, 3)}" fill="none" x="0" y="0" dominant-baseline="middle" text-anchor="middle" filter="url(#blur${randInt(1, 2)})" font-size="${fixedFontSize}">${fruitArray[randInt(0, fruitArray.length - 1)]}
+          confettiType = `<text id="${conId}" fill="${confettiColor}" stroke-width="${randInt(1, 3)}" fill="none" x="0" y="0" dominant-baseline="middle" text-anchor="middle" filter="url(#blur${randomBlur()})" font-size="${fixedFontSize}">${fruitArray[randInt(0, fruitArray.length - 1)]}
 			${confettiSpin}
 			</text>`;
           break;
         case 'circle':
-          confettiType = `<circle id="${conId}" fill="${confettiColor}" cx="0" cy="0" r="${fixedR}" filter="url(#blur${randInt(1, 2)})">
+          confettiType = `<circle id="${conId}" fill="${confettiColor}" cx="0" cy="0" r="${fixedR}" filter="url(#blur${randomBlur()})">
 			${confettiSpin}
 			</circle>`;
           break;
         case 'flower':
-          confettiType = `<g filter="url(#blur${randInt(1, 2)})" id="${conId}" transform="scale(${c.scale})">
+          confettiType = `<g filter="url(#blur${randomBlur()})" id="${conId}" transform="scale(${c.scale})">
 					<path fill="${confettiColor}" d="M -2 -2 C -4 -10 4 -10 2 -2 L 2 2 C 4 10 -4 10 -2 2 L -2 -2 M 0 -2.828 C 4.242 -9.9 9.9 -4.242 2.828 0 L 0 2.828 C -4.242 9.9 -9.9 4.242 -2.828 0 L 0 -2.828 M -2.828 0 C -9.9 -4.242 -4.242 -9.9 0 -2.828 L 2.828 0 C 9.9 4.242 4.242 9.9 0 2.828 L -2.828 0 M 2 -2 C 10 -4 10 4 2 2 L -2 2 C -10 4 -10 -4 -2 -2 L 2 -2" filter="drop-shadow(rgba(0, 0, 0, ${randInt(0, 10) / 10}) 0px 0px ${randInt(0, 10) / 10}px)" />
 				<path fill="rgb(${randInt(0, 255)}, ${randInt(0, 255)}, ${randInt(0, 255)})" d="M 0 -2 C -4 -10 4 -10 0 -2 L 0 2 C 4 10 -4 10 0 2 L 0 0 M 2 -2 C 4.242 -9.9 9.9 -4.242 2 -2 L -2 2 C -4.242 9.9 -9.9 4.242 -2 2 M -2 -2 C -9.9 -4.242 -4.242 -9.9 -2 -2 L 2 2 C 9.9 4.242 4.242 9.9 2 2 L 0 0 M 2 0 C 10 -4 10 4 2 0 L -2 0 C -10 4 -10 -4 -2 0 L 2 0" />
 				<circle fill="rgb(${randInt(0, 255)}, ${randInt(0, 255)}, ${randInt(0, 255)})" cx="0" cy="0" r="2.8" stroke="rgb(${randInt(0, 255)}, ${randInt(0, 255)}, ${randInt(0, 255)})" stroke-width="0.4" />
@@ -111,13 +117,13 @@ function confetti(el, params) {
           break;
         case 'square':
           let hhww = randInt(4, 12);
-          confettiType = `<rect id="${conId}" fill="${confettiColor}" x="0" y="0" height="${hhww}" width="${hhww}" filter="url(#blur${randInt(1, 2)})">
+          confettiType = `<rect id="${conId}" fill="${confettiColor}" x="0" y="0" height="${hhww}" width="${hhww}" filter="url(#blur${randomBlur()})">
 						${confettiSpin}
 					</rect>`;
           break;
         case 'tri':
         case 'triangle':
-          confettiType = `<path id="${conId}" fill="${confettiColor}" d="M -8 6 L 0 -8 L 8 6 Z" filter="url(#blur${randInt(1, 2)})">
+          confettiType = `<path id="${conId}" fill="${confettiColor}" d="M -8 6 L 0 -8 L 8 6 Z" filter="url(#blur${randomBlur()})">
 						${confettiSpin}
 					</path>`;
           break;
@@ -129,7 +135,7 @@ function confetti(el, params) {
           let randCard = randInt(0, 3);
           confettiType = `<g id="${conId}">
 					<g transform="scale(${c.scale})">
-					<path class="cardBG" d="M -6 -6 C -6 -7 -5 -8 -4 -8 H 4 C 5 -8 6 -7 6 -6 V 6 C 6 7 5 8 4 8 H -4 C -5 8 -6 7 -6 6 Z" fill="#fff" filter="url(#blur${randInt(1, 2)})" rx="1" stroke="#000" stroke-width="0.3"/>
+					<path class="cardBG" d="M -6 -6 C -6 -7 -5 -8 -4 -8 H 4 C 5 -8 6 -7 6 -6 V 6 C 6 7 5 8 4 8 H -4 C -5 8 -6 7 -6 6 Z" fill="#fff" filter="url(#blur${randomBlur()})" rx="1" stroke="#000" stroke-width="0.3"/>
 					<path d="${cardTypePath[randCard]}" fill="${cardCol[randCard]}" />
 					<path d="${cardTypePath[randCard]}" fill="${cardCol[randCard]}" transform="scale(0.5 0.5) translate(-7 -9)" />
 					<path d="${cardTypePath[randCard]}" fill="${cardCol[randCard]}" transform="scale(0.5 0.5) translate(7 9)" />
@@ -141,13 +147,13 @@ function confetti(el, params) {
           if (randInt(0, 1) == 1) {
             // 1 note
             confettiType = `<g transform="scale(${c.scale})" id="${conId}">
-						<path fill="${confettiColor}" d="M -3.6 9.6 C -4.9 8.6 -4.2 6.8 -2.3 5.7 C -1.4 5.1 -0.9 5.1 0 5.1 C 0.4 5.1 1.2 5.4 1.2 5.4 L 1.2 -10.2 L 1.8 -10.2 L 1.8 -9.4 C 1.8 -9.1 1.8 -9.1 1.8 -9 C 2.1 -7.6 2.5 -7.1 4.1 -5.4 C 6.1 -3.2 6.4 -1.8 6.4 0 C 6.4 1.5 5 5 4.8 5.1 C 5.1 3.8 6 2 6 0 C 6 -1 5.7 -2.1 4.8 -3 C 4.1 -3.8 2 -5 2 -4 L 2 7 C 2 7 2 8 1 9 C -0.3 9.9 -2.5 10.6 -3.6 9.6 Z"  filter="url(#blur${randInt(1, 2)})">
+						<path fill="${confettiColor}" d="M -3.6 9.6 C -4.9 8.6 -4.2 6.8 -2.3 5.7 C -1.4 5.1 -0.9 5.1 0 5.1 C 0.4 5.1 1.2 5.4 1.2 5.4 L 1.2 -10.2 L 1.8 -10.2 L 1.8 -9.4 C 1.8 -9.1 1.8 -9.1 1.8 -9 C 2.1 -7.6 2.5 -7.1 4.1 -5.4 C 6.1 -3.2 6.4 -1.8 6.4 0 C 6.4 1.5 5 5 4.8 5.1 C 5.1 3.8 6 2 6 0 C 6 -1 5.7 -2.1 4.8 -3 C 4.1 -3.8 2 -5 2 -4 L 2 7 C 2 7 2 8 1 9 C -0.3 9.9 -2.5 10.6 -3.6 9.6 Z"  filter="url(#blur${randomBlur()})">
 					${confettiSpin}
 				</path>
 				</g>`;
           } else {
             confettiType = `<g transform="scale(${c.scale})" id="${conId}">
-						<path fill="${confettiColor}" d="M -12.6 9.6 C -13.9 8.6 -13.2 6.8 -11.3 5.7 C -10.4 5.1 -9.9 5.1 -9 5 C -8 5 -8 5 -8 5 V -10 H 9 V 7 C 9 7 9 8 8 9 C 6.7 9.9 4.5 10.6 3.4 9.6 C 2.1 8.6 2.8 6.8 4.7 5.7 C 5.6 5.1 6.1 5.1 7 5 C 8 5 8 5 8 5 V -8 H -7 V 7 C -7 7 -7 8 -8 9 C -9.3 9.9 -11.5 10.6 -12.6 9.6 Z"  filter="url(#blur${randInt(1, 2)})">
+						<path fill="${confettiColor}" d="M -12.6 9.6 C -13.9 8.6 -13.2 6.8 -11.3 5.7 C -10.4 5.1 -9.9 5.1 -9 5 C -8 5 -8 5 -8 5 V -10 H 9 V 7 C 9 7 9 8 8 9 C 6.7 9.9 4.5 10.6 3.4 9.6 C 2.1 8.6 2.8 6.8 4.7 5.7 C 5.6 5.1 6.1 5.1 7 5 C 8 5 8 5 8 5 V -8 H -7 V 7 C -7 7 -7 8 -8 9 C -9.3 9.9 -11.5 10.6 -12.6 9.6 Z"  filter="url(#blur${randomBlur()})">
 					${confettiSpin}
 				</path>
 				</g>`;
@@ -155,7 +161,7 @@ function confetti(el, params) {
           break;
         case 'star':
           confettiType = `<g transform="scale(${c.scale})" id="${conId}">
-						<path fill="${confettiColor}" d="M 0 -9.6 L 2.4 -2.8 H 9.6 L 4 1.6 L 6 8.4 L 0 4.4 L -6 8.4 L -4 1.6 L -9.6 -2.8 H -2.4 Z"  filter="url(#blur${randInt(1, 2)})">
+						<path fill="${confettiColor}" d="M 0 -9.6 L 2.4 -2.8 H 9.6 L 4 1.6 L 6 8.4 L 0 4.4 L -6 8.4 L -4 1.6 L -9.6 -2.8 H -2.4 Z"  filter="url(#blur${randomBlur()})">
 					${confettiSpin}
 				</path>
 				</g>`;
@@ -170,7 +176,7 @@ function confetti(el, params) {
         case 'rect':
         case 'default':
         default:
-          confettiType = `<rect id="${conId}" fill="${confettiColor}" x="0" y="0" height="${randInt(6, 18)}" width="${randInt(4, 7)}" filter="url(#blur${randInt(1, 2)})">
+          confettiType = `<rect id="${conId}" fill="${confettiColor}" x="0" y="0" height="${randInt(6, 18)}" width="${randInt(4, 7)}" filter="url(#blur${randomBlur()})">
 						${confettiSpin}
 					</rect>`;
       }
@@ -185,7 +191,7 @@ function confetti(el, params) {
 						</image>
 				</g>`;
       } else {
-        confettiType = `<text id="${conId}" fill="${confettiColor}" stroke-width="${randInt(1, 3)}" fill="none" x="0" y="0" dominant-baseline="middle" text-anchor="middle" filter="url(#blur${randInt(1, 2)})" font-size="${fixedFontSize}">${randArrVal}
+        confettiType = `<text id="${conId}" fill="${confettiColor}" stroke-width="${randInt(1, 3)}" fill="none" x="0" y="0" dominant-baseline="middle" text-anchor="middle" filter="url(#blur${randomBlur()})" font-size="${fixedFontSize}">${randArrVal}
 				${confettiSpin}
 				</text>`;
       }
