@@ -2,7 +2,7 @@
  * @param {Element=} el element to position the confetti over
  * @param {Object=} opt_properties properties object passed in to customize confetti type
  */
-export function confetti(el = document.body, opt_properties) {
+function confetti(el = document.body, opt_properties) {
   if (!el) {
     console.error('Must have element to populate the confetti!');
     return;
