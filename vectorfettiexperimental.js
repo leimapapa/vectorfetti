@@ -21,9 +21,9 @@ function confetti(el = document.body, opt_properties) {
     speed: 5000,
     spread: 400,
     spin: true,
-		zSpin: true,
+	zSpin: true,
     type: 'default',
-		zIndex: 99999
+	zIndex: 99999
   };
 
   const isImage = (url) => {
